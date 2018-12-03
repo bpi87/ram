@@ -1,0 +1,221 @@
+{# ============================================================================================= #}
+{# LOAD PACKAGES =============================================================================== #}
+{# ============================================================================================= #}
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ============================================================================================= #}
+{# LOAD STYLESHEET ============================================================================= #}
+{# ============================================================================================= #}
+{% block styles %}
+
+    <link href="{% static 'gspdm/css/style.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE HEADING ================================================================================ #}
+{# ============================================================================================= #}
+{% block title %}
+
+    {% trans "Your decisions" %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE CONTENT ================================================================================ #}
+{# ============================================================================================= #}
+{% block content %}
+
+{% if Constants.application_framing %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        Please state your bids and preferences for all {{ nr_courses }} courses in the following form.
+        Please note:
+        <ul>
+            <li>The preferences must be a unique for each course and run from 1 to {{ nr_courses }}.</li>
+            <li>The sum of bids must not exceed {{ endowment }}.</li>
+            <li>You can be matched with up to {{ s_len }} courses.</li>
+        </ul>
+    {% endblocktrans %}
+</p>
+
+{% else %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        Please state your bids and preferences for all {{ nr_courses }} resources in the following form.
+        Please note:
+        <ul>
+            <li>The preferences must be a unique for each resource and run from 1 to {{ nr_courses }}.</li>
+            <li>The sum of bids must not exceed {{ endowment }}.</li>
+            <li>You can be matched with up to {{ s_len }} resources.</li>
+        </ul>
+    {% endblocktrans %}
+</p>
+{% endif %}
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>
+                {% if Constants.application_framing %}
+                {% trans "C" %}
+                {% else %}
+                {% trans "R" %}
+                {% endif %}
+                <sub>{{ i }}</sub>
+            </td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>
+                {% trans "Potential Payoff" %}
+                {% if Constants.show_types and Constants.nr_types > 1 %}
+                <br/>({% trans "You are"  %} {{ player.role }})
+                {% endif %}
+            </th>
+            {% for i in valuations %}
+            <td>{{ i|c }}</td>
+            {% endfor %}
+        </tr>
+        {% if Constants.show_capacities %}
+        <tr>
+            <th>{% trans "Capacities" %}</th>
+            {% for i in capacities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        <tr>
+            <th>{% trans "Your preferences" %}</th>
+            {% for i, pref in pref_input %}
+            <td><input class="pref-form" id="pref_c{{ i }}" type="number" name="{{ pref }}" value="" maxlength="3">
+            </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>{% trans "Your bids" %}</th>
+            {% for i, bid in bid_input %}
+            <td><input class="form" id="bid_c{{ i }}" type="number" name="{{ bid }}" value="0" maxlength="3">
+            </td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{% if Constants.show_counter %}
+<p class="justify">
+    {% blocktrans trimmed %}
+    <h5>You have <b><span id="result"></span></b> bidding points left.</h5>
+    {% endblocktrans %}
+</p>
+{% endif %}
+
+{% if Constants.show_valuations and Constants.show_types and Constants.nr_types > 1 %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        In addition, you know the valuations of the other Types:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>
+                {% if Constants.application_framing %}
+                {% trans "C" %}
+                {% else %}
+                {% trans "R" %}
+                {% endif %}
+                <sub>{{ i }}</sub>
+            </td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+            {% for type, valuations in valuations_others %}
+
+            <tr>
+                <th>{% trans "Potential Payoff<br/>for" %} {{ type }}</th>
+                {% for v in valuations %}
+                <td>{{ v|c }}</td>
+                {% endfor %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br/>
+{% endif %}
+<br/>
+{% if Constants.confirm_button %}
+<div>
+    <button id="button" class="btn btn-primary btn-large"  type="button" onclick="showhide()">Next</button>
+
+    <br/><br/>
+
+    <div id="confirm_next" style="display: none">
+        {% trans "Are you sure that all your inputs are correct?" %}
+
+        <br/><br/>
+
+        <button id="button_confirm" class="btn btn-primary btn-large" >{% trans "Yes" %}</button>
+    </div>
+</div>
+
+{% else %}
+{% next_button %}
+
+{% endif %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# JAVASCRIPTS ================================================================================= #}
+{# ============================================================================================= #}
+{% block scripts %}
+
+<script>
+     function showhide()
+     {
+           var div = document.getElementById("confirm_next");
+            div.style.display = "block";
+     }
+</script>
+<script>
+       var endowment = {{ Constants.endowment }}
+       $("#result").text(endowment);
+
+        $(".form").bind("keyup change", function () {
+
+            var number_array = $(".form").map(
+                function () {
+                    return $(this).val()
+                }).get();
+
+            var sum = 0;
+            number_array.forEach(function (num) {
+                sum += parseInt(num) || 0;
+            });
+
+            $("#result").text(endowment - sum)
+
+        });
+</script>
+
+{% endblock %}

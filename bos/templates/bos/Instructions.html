@@ -1,0 +1,472 @@
+{# ============================================================================================= #}
+{# LOAD PACKAGES =============================================================================== #}
+{# ============================================================================================= #}
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ============================================================================================= #}
+{# LOAD STYLESHEET ============================================================================= #}
+{# ============================================================================================= #}
+{% block styles %}
+
+    <link href="{% static 'bos/css/style.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE HEADING ================================================================================ #}
+{# ============================================================================================= #}
+{% block title %}
+
+    {% trans "Instructions" %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE CONTENT ================================================================================ #}
+{# ============================================================================================= #}
+{% block content %}
+
+<p class="heading">
+    {% trans "Preferences for resource allocation" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        In this experiment, you take part in a resource allocation exercise. In groups of {{ players_per_group }}
+        participants, you are to submit preferences over a selection of resources. You can choose over
+        {{ nr_courses }} resources in total. Also, each resource has a different capacity of participants. However,
+        not only the members of your group submit their preferences for the resources, but also the resources have
+        priorities over the members of your group, which are given by the experimenter.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Every available resource is linked to a potential payoff. These payoffs can vary within the group. Imagine the
+        payoff as a representation of you much you enjoy being allocated with a certain resource. In this experiment, the
+        payoffs - and therefore you personal joy - are given by the experimenter.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        The following table sums up all the information you have in the experiment. Please keep in mind that the table
+        is not necessarily the same for all your group members.
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>{% trans "R" %}<sub>{{ i }}</sub></td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>
+                {% trans "Potential Payoff" %}
+                {% if Constants.show_types and Constants.nr_types > 1 %}
+                <br/>({% trans "You are"  %} {{ player.role }})
+                {% endif %}
+            </th>
+            {% for i in valuations %}
+            <td>{{ i|c }}</td>
+            {% endfor %}
+        </tr>
+        {% if Constants.show_priorities %}
+        <tr>
+            <th>{% trans "Resources' priorities<br/>(... out of" %} {{ players_per_group }})</th>
+            {% for i in priorities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        {% if Constants.show_capacities %}
+        <tr>
+            <th>{% trans "Capacities" %}</th>
+            {% for i in capacities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<p class="heading">
+    {% trans "How are resources allocated?" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        In the first step, every participant applies for the resource stated as his/her top preference. Each resource then
+        reviews all applications of agents and assigns the participant to it in the order of its priority list until
+        either its capacity is depleted or there are no applications left. All participant that were assigned to a
+        resource and all resources with depleted capacity are removed.
+        All remaining participant are considered in this step and apply for the resource stated as their second highest
+        preference. Each remaining resource then reviews all applications of participant and assigns the participant
+        to it in the order of its remaining priority list until either its capacity is depleted or after there are no
+        applications left.
+    {% endblocktrans %}
+</p>
+
+{% if Constants.instructions_example %}
+<p class="heading">
+    {% trans "Example:" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Suppose that there are <b>eight</b> participants and <b>four</b> resources. Resources 1 and 2 have a capacity of
+        <b>two</b> participants each. Resources 3 and 4 have a capacity of <b>three</b> participants each. Further suppose
+        that the participants' preferences and the resources' priorities are as follows:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>{% trans "Participant" %} 1</th>
+        <th>{% trans "Participant" %} 2</th>
+        <th>{% trans "Participant" %} 3</th>
+        <th>{% trans "Participant" %} 4</th>
+        <th>{% trans "Participant" %} 5</th>
+        <th>{% trans "Participant" %} 6</th>
+        <th>{% trans "Participant" %} 7</th>
+        <th>{% trans "Participant" %} 8</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "Resource" %} 1</td>
+        <td>2</td>
+        <td>1</td>
+        <td>3</td>
+        <td>3</td>
+        <td>1</td>
+        <td>4</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>{% trans "Resource" %} 2</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+        <td>4</td>
+        <td>3</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>{% trans "Resource" %} 3</td>
+        <td>3</td>
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+        <td>4</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>{% trans "Resource" %} 4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>2</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>3</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <br/>
+
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>{% trans "Resource" %} 1</th>
+        <th>{% trans "Resource" %} 2</th>
+        <th>{% trans "Resource" %} 3</th>
+        <th>{% trans "Resource" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "Participant" %} 1</td>
+        <td>1</td>
+        <td>7</td>
+        <td>3</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 2</td>
+        <td>2</td>
+        <td>6</td>
+        <td>5</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 3</td>
+        <td>3</td>
+        <td>1</td>
+        <td>2</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 4</td>
+        <td>4</td>
+        <td>3</td>
+        <td>8</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 5</td>
+        <td>5</td>
+        <td>2</td>
+        <td>1</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 6</td>
+        <td>6</td>
+        <td>8</td>
+        <td>7</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 7</td>
+        <td>7</td>
+        <td>5</td>
+        <td>4</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 8</td>
+        <td>8</td>
+        <td>4</td>
+        <td>6</td>
+        <td>2</td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Step 1:</b> P<sub>2</sub>, P<sub>5</sub>, P<sub>7</sub>, and P<sub>8</sub> apply for R<sub>1</sub>.
+        P<sub>1</sub> applies for R<sub>2</sub>. P<sub>3</sub> and P<sub>4</sub> apply for R<sub>3</sub>.
+        P<sub>6</sub> applies for R<sub>4</sub>. The requested resources review all applications and rank them
+        according to their priority order:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Resource" %} 1</th>
+        <th>{% trans "Resource" %} 2</th>
+        <th>{% trans "Resource" %} 3</th>
+        <th>{% trans "Resource" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "Participant" %} 2</td>
+        <td>{% trans "Participant" %} 1</td>
+        <td>{% trans "Participant" %} 3</td>
+        <td>{% trans "Participant" %} 6</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 5</td>
+        <td></td>
+        <td>{% trans "Participant" %} 4</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><del>{% trans "Participant" %} 7</del></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><del>{% trans "Participant" %} 8</del></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        R<sub>1</sub> declines P<sub>7</sub> and P<sub>8</sub>. All other applications are accepted.
+    {% endblocktrans %}
+</p>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Step 2:</b> Only P<sub>7</sub> and P<sub>8</sub> are left. Both apply to R<sub>2</sub>. The requested
+        resources review all applications and rank them according to their priority order:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Resource" %} 1</th>
+        <th>{% trans "Resource" %} 2</th>
+        <th>{% trans "Resource" %} 3</th>
+        <th>{% trans "Resource" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><b>{% trans "Participant" %} 2</b></td>
+        <td><b>{% trans "Participant" %} 1</b></td>
+        <td><b>{% trans "Participant" %} 3</b></td>
+        <td><b>{% trans "Participant" %} 6</b></td>
+      </tr>
+      <tr>
+        <td><b>{% trans "Participant" %} 5</b></td>
+        <td>{% trans "Participant" %} 8</td>
+        <td><b>{% trans "Participant" %} 4</b></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><del>{% trans "Participant" %} 7</del></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        R<sub>2</sub> declines P<sub>7</sub>. P<sub>8</sub>'s application is accepted.
+    {% endblocktrans %}
+</p>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Step 3:</b> Only P<sub>7</sub> is left and applies R<sub>3</sub>. The requested resource reviews
+        his/her application:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Resource" %} 1</th>
+        <th>{% trans "Resource" %} 2</th>
+        <th>{% trans "Resource" %} 3</th>
+        <th>{% trans "Resource" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><b>{% trans "Participant" %} 2</b></td>
+        <td><b>{% trans "Participant" %} 1</b></td>
+        <td><b>{% trans "Participant" %} 3</b></td>
+        <td><b>{% trans "Participant" %} 6</b></td>
+      </tr>
+      <tr>
+        <td><b>{% trans "Participant" %} 5</b></td>
+        <td><b>{% trans "Participant" %} 8</b></td>
+        <td><b>{% trans "Participant" %} 4</b></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>{% trans "Participant" %} 7</td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        R<sub>2</sub> accepts P<sub>7</sub>. The assignment is finalized:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Resource" %} 1</th>
+        <th>{% trans "Resource" %} 2</th>
+        <th>{% trans "Resource" %} 3</th>
+        <th>{% trans "Resource" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><b>{% trans "Participant" %} 2</b></td>
+        <td><b>{% trans "Participant" %} 1</b></td>
+        <td><b>{% trans "Participant" %} 3</b></td>
+        <td><b>{% trans "Participant" %} 6</b></td>
+      </tr>
+      <tr>
+        <td><b>{% trans "Participant" %} 5</b></td>
+        <td><b>{% trans "Participant" %} 8</b></td>
+        <td><b>{% trans "Participant" %} 4</b></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><b>{% trans "Participant" %} 7</b></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+{% endif %}
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Please click the "Next" button to continue.
+    {% endblocktrans %}
+</p>
+
+{% next_button %}
+
+{% endblock %}

@@ -1,0 +1,332 @@
+{# ============================================================================================= #}
+{# LOAD PACKAGES =============================================================================== #}
+{# ============================================================================================= #}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ============================================================================================= #}
+{# LOAD STYLESHEET ============================================================================= #}
+{# ============================================================================================= #}
+{% block styles %}
+
+    <link href="{% static 'ttc/css/style.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PREPARE .XLS EXPORT ========================================================================= #}
+{# ============================================================================================= #}
+<iframe id="txtArea1" style="display:none"></iframe>
+
+<form>
+    <button id="submit" class="btn btn-primary">Update Data</button>
+    <button class="btn btn-primary" id="btnExport" onclick="fnExcelReport();">Export Data to .xls</button>
+</form>
+<br/>
+
+
+{# ============================================================================================= #}
+{# PAGE CONTENT ================================================================================ #}
+{# ============================================================================================= #}
+{% block content %}
+
+<button id="button1" class="btn btn-primary btn-large"  type="button" onclick="showhide_inputs()">Show/Hide Inputs</button>
+<button id="button2" class="btn btn-primary btn-large"  type="button" onclick="showhide_decisions()">Show/Hide Decisions</button>
+<button id="button3" class="btn btn-primary btn-large"  type="button" onclick="showhide_outcomes()">Show/Hide Outcomes</button>
+
+<div id="show_hide_inputs">
+
+    <p class="heading">Inputs:</p>
+
+    <div>
+        <table class="instr-table">
+            <thead>
+            <tr>
+                <th colspan="{{ Constants.nr_courses }}">Resource Valuations:</th>
+            </tr>
+            <tr>
+                {% for i in indices %}
+                <th>R<sub>{{ i }}</sub></th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for type, valuations in valuations_all_types %}
+            <tr>
+                <td colspan="{{ Constants.nr_courses }}"><b>{{ type }} -
+                    Player(s):</b>
+                    {% for p in players %}
+                    {% if p.role == type %}[{{ p.id_in_subsession }}]{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                {% for v in valuations %}
+                <td>{{ v }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+
+    <div>
+        <table class="instr-table">
+            <thead>
+            <tr>
+                <th colspan="{{ table_nr_tds_priorities }}">Priorities of Resources:</th>
+            </tr>
+            <tr>
+                <th>Group ID</th>
+                {% for i in indices %}
+                <th>R<sub>{{ i }}</sub></th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for p, prio in priorities_all_players %}
+            <tr>
+                <td>{{ p.id_in_group }}</td>
+
+                {% for p in prio %}
+                <td>{{ p }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+
+    <div>
+        <table class="instr-table">
+            <thead>
+            <tr>
+                <th colspan="{{ Constants.nr_courses }}">Resource Capacities:</th>
+            </tr>
+            <tr>
+                {% for i in indices %}
+                <th>R<sub>{{ i }}</sub></th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for c in capacities %}
+                <td>{{ c }}</td>
+                {% endfor %}
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="show_hide_decisions">
+
+    <p class="heading">Decisions:</p>
+
+    <div>
+        <table class="instr-table">
+            <thead>
+            <tr>
+                <th colspan="{{ table_nr_tds_decisions }}">Preferences:</th>
+            </tr>
+            <tr>
+                <th>Session ID</th>
+                <th>Group ID</th>
+                {% for i in indices %}
+                <th>R<sub>{{ i }}</sub></th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for p, prefs in decisions %}
+            <tr>
+                <td>{{ p.id_in_subsession }}</td>
+                <td>{{ p.id_in_group }}</td>
+                {% for b in prefs %}
+                <td>{{ b }}</td>
+                {% endfor %}
+            </tr>
+            {% if p in last_player_per_group %}
+            <tr style="height:15px"></tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="show_hide_outcomes">
+
+    <p class="heading">Outcomes:</p>
+
+    <div>
+        <table class="instr-table">
+            <thead>
+            <tr>
+                <th colspan="{{ table_nr_tds_decisions }}">Allocations:</th>
+            </tr>
+            <tr>
+                <th>Session ID</th>
+                <th>Group ID</th>
+                {% for i in indices %}
+                <th>R<sub>{{ i }}</sub></th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for p, success in successful_with_id %}
+            <tr>
+                <td>{{ p.id_in_subsession }}</td>
+                <td>{{ p.id_in_group }}</td>
+
+                {% for b in success %}
+                <td>{% if b == True %} X {% else %} {% endif %}</td>
+                {% endfor %}
+            </tr>
+            {% if p in last_player_per_group %}
+            <tr style="height:15px"></tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------
+<! HIDDEN TABLE TO EXPORT DATA TO .XLS ------------------------------------------------------------
+<!------------------------------------------------------------------------------------------------>
+<table id="export_table" style="display:none">
+    <thead>
+        <tr>
+            <th>id_in_subsession</th>
+
+            <th>id_in_group</th>
+
+            <th>type</th>
+
+            {% for i in indices %}
+            <th>valuation_r{{ i }}</th>
+            {% endfor %}
+
+            {% for i in indices %}
+            <th>pref_r{{ i }}</th>
+            {% endfor %}
+
+            {% for i in indices %}
+            <th>successful_r{{ i }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for p, valuations, prefs, successful in data_all %}
+        <tr>
+            <td>{{ p.id_in_subsession }}</td>
+
+            <td>{{ p.id_in_group }}</td>
+
+            <td>{{ p.role }}</td>
+
+            {% for v in valuations %}
+            <td>{{ v }}</td>
+            {% endfor %}
+
+            {% for b in prefs %}
+            <td>{{ b }}</td>
+            {% endfor %}
+
+            {% for b in successful %}
+            <td>{{ b }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# JAVASCRIPTS ================================================================================= #}
+{# ============================================================================================= #}
+{% block scripts %}
+<script>
+    function fnExcelReport()
+{
+    var tab_text="<table border='2px'><tr>";
+    var textRange; var j=0;
+    tab = document.getElementById('export_table');
+
+    for(j = 0 ; j < tab.rows.length ; j++)
+    {
+        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+    }
+
+    tab_text=tab_text+"</table>";
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))
+    {
+        txtArea1.document.open("txt/html","replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus();
+        sa=txtArea1.document.execCommand("SaveAs",true,"");
+    }
+    else
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+    return (sa);
+}
+ </script>
+
+ <script>
+     function showhide_inputs()
+     {
+           var div = document.getElementById("show_hide_inputs");
+    if (div.style.display !== "none") {
+        div.style.display = "none";
+
+    }
+    else {
+        div.style.display = "block";
+    }
+     }
+
+     function showhide_decisions()
+     {
+           var div = document.getElementById("show_hide_decisions");
+    if (div.style.display !== "none") {
+        div.style.display = "none";
+
+    }
+    else {
+        div.style.display = "block";
+    }
+     }
+
+     function showhide_outcomes()
+     {
+           var div = document.getElementById("show_hide_outcomes");
+    if (div.style.display !== "none") {
+        div.style.display = "none";
+
+    }
+    else {
+        div.style.display = "block";
+    }
+     }
+ </script>
+
+{% endblock %}

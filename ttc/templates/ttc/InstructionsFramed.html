@@ -1,0 +1,376 @@
+{# ============================================================================================= #}
+{# LOAD PACKAGES =============================================================================== #}
+{# ============================================================================================= #}
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ============================================================================================= #}
+{# LOAD STYLESHEET ============================================================================= #}
+{# ============================================================================================= #}
+{% block styles %}
+
+    <link href="{% static 'ttc/css/style.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE HEADING ================================================================================ #}
+{# ============================================================================================= #}
+{% block title %}
+
+    {% trans "Instructions" %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE CONTENT ================================================================================ #}
+{# ============================================================================================= #}
+{% block content %}
+
+<p class="heading">
+    {% trans "Preferences for school choice" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        In this experiment, you take part in a school choice exercise. In groups of {{ players_per_group }}
+        participants, you are to submit preferences over a selection of schools. You can choose over
+        {{ nr_courses }} schools in total. Also, each school has a different capacity of participants. However,
+        not only the members of your group submit their preferences for the schools, but also the schools have
+        priorities over the members of your group.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Every available school is linked to a potential payoff. These payoffs can vary within the group. Imagine the
+        payoff as a representation of you much you enjoy being allocated with a certain school. In this experiment, the
+        payoffs - and therefore you personal joy - are given by the experimenter.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        The following table sums up all the information you have in the experiment. Please keep in mind that the table
+        is not necessarily the same for all your group members.
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>{% trans "S" %}<sub>{{ i }}</sub></td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>
+                {% trans "Potential Payoff" %}
+                {% if Constants.show_types and Constants.nr_types > 1 %}
+                <br/>({% trans "You are"  %} {{ player.role }})
+                {% endif %}
+            </th>
+            {% for i in valuations %}
+            <td>{{ i|c }}</td>
+            {% endfor %}
+        </tr>
+        {% if Constants.show_priorities %}
+        <tr>
+            <th>{% trans "Schools' priorities<br/>(... out of" %} {{ players_per_group }})</th>
+            {% for i in priorities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        {% if Constants.show_capacities %}
+        <tr>
+            <th>{% trans "Capacities" %}</th>
+            {% for i in capacities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<p class="heading">
+    {% trans "How are schools allocated?" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Each school points to its top ranked participant in its priority list and each participant points to his/her top
+        ranked school in his/her preference list. Whenever a pointer cycle is found, all participant in the cycle are
+        assigned to the schools they point to. The capacities of all schools in the cycle are reduced by one.
+        All participant that were assigned in this step and all schools with depleted capacities are removed.
+        The procedure continues with the remaining participant and schools. The procedure terminates when no more
+        cycles are found. In other words, the mechanism at hands trades preferences and priorities between schools and
+        participants.
+    {% endblocktrans %}
+</p>
+
+{% if Constants.instructions_example %}
+<p class="heading">
+    {% trans "Example:" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Suppose that there are <b>eight</b> participants and <b>four</b> schools. Schools 1 and 2 have a capacity of
+        <b>two</b> participants each. Schools 3 and 4 have a capacity of <b>three</b> participants each. Further suppose
+        that the participants' preferences and the schools' priorities are as follows:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>{% trans "Participant" %} 1</th>
+        <th>{% trans "Participant" %} 2</th>
+        <th>{% trans "Participant" %} 3</th>
+        <th>{% trans "Participant" %} 4</th>
+        <th>{% trans "Participant" %} 5</th>
+        <th>{% trans "Participant" %} 6</th>
+        <th>{% trans "Participant" %} 7</th>
+        <th>{% trans "Participant" %} 8</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "School" %} 1</td>
+        <td>2</td>
+        <td>1</td>
+        <td>3</td>
+        <td>3</td>
+        <td>1</td>
+        <td>4</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>{% trans "School" %} 2</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+        <td>4</td>
+        <td>3</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>{% trans "School" %} 3</td>
+        <td>3</td>
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+        <td>4</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>{% trans "School" %} 4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>2</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>3</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <br/>
+
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>{% trans "School" %} 1</th>
+        <th>{% trans "School" %} 2</th>
+        <th>{% trans "School" %} 3</th>
+        <th>{% trans "School" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "Participant" %} 1</td>
+        <td>1</td>
+        <td>7</td>
+        <td>3</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 2</td>
+        <td>2</td>
+        <td>6</td>
+        <td>5</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 3</td>
+        <td>3</td>
+        <td>1</td>
+        <td>2</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 4</td>
+        <td>4</td>
+        <td>3</td>
+        <td>8</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 5</td>
+        <td>5</td>
+        <td>2</td>
+        <td>1</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 6</td>
+        <td>6</td>
+        <td>8</td>
+        <td>7</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 7</td>
+        <td>7</td>
+        <td>5</td>
+        <td>4</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>{% trans "Participant" %} 8</td>
+        <td>8</td>
+        <td>4</td>
+        <td>6</td>
+        <td>2</td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Step 1:</b> There are two cycles in this step:<br/>
+        <b>(1)</b> P<sub>1</sub> points to S<sub>2</sub>, S<sub>2</sub> points to P<sub>3</sub>, P<sub>3</sub> points to
+        S<sub>3</sub>, S<sub>3</sub> points to P<sub>5</sub>, P<sub>5</sub> points to S<sub>1</sub>, S<sub>1</sub> points to
+        P<sub>1</sub>.<br/>
+        <b>(2)</b> P<sub>6</sub> points to S<sub>4</sub>, S<sub>4</sub> points to P<sub>6</sub>.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Since every school is part of at a cycle in this step, all capacities are reduced by 1.
+    {% endblocktrans %}
+</p>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Step 2:</b> There is one cycles in this step:<br/>
+        <b>(1)</b> P<sub>2</sub> &#8594; S<sub>1</sub>, S<sub>1</sub> &#8594; P<sub>2</sub>
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        The capacity of S<sub>1</sub> is reduced by 1. Since it has reached its capacity limit, it is removed for the next
+        step.
+    {% endblocktrans %}
+</p>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Step 3:</b> There is one cycles in this step:<br/>
+        <b>(1)</b> P<sub>7</sub> &#8594; S<sub>2</sub>, S<sub>2</sub> &#8594; P<sub>4</sub>, P<sub>4</sub> &#8594; S<sub>3</sub>,
+        S<sub>3</sub> &#8594; P<sub>7</sub>
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        The capacities of S<sub>2</sub> and S<sub>3</sub> are reduced by 1. Since S<sub>2</sub> has reached its capacity limit, it is
+        removed for the next step.
+    {% endblocktrans %}
+</p>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Step 4:</b> There is one cycles in this step:<br/>
+        <b>(1)</b> P<sub>8</sub> &#8594; S<sub>4</sub>, S<sub>4</sub> &#8594; P<sub>8</sub>
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        The capacity of S<sub>4</sub> is reduced by 1. The procedure terminates, since all participants have been assigned
+        to a school. The final assignment looks as follows:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Participant" %} 1</th>
+        <th>{% trans "Participant" %} 2</th>
+        <th>{% trans "Participant" %} 3</th>
+        <th>{% trans "Participant" %} 4</th>
+        <th>{% trans "Participant" %} 5</th>
+        <th>{% trans "Participant" %} 6</th>
+        <th>{% trans "Participant" %} 7</th>
+        <th>{% trans "Participant" %} 8</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "School" %} 2</td>
+        <td>{% trans "School" %} 1</td>
+        <td>{% trans "School" %} 3</td>
+        <td>{% trans "School" %} 3</td>
+        <td>{% trans "School" %} 1</td>
+        <td>{% trans "School" %} 4</td>
+        <td>{% trans "School" %} 2</td>
+        <td>{% trans "School" %} 4</td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+{% endif %}
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Please click the "Next" button to continue.
+    {% endblocktrans %}
+</p>
+
+{% next_button %}
+
+{% endblock %}

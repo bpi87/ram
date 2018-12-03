@@ -1,0 +1,188 @@
+{# ============================================================================================= #}
+{# LOAD PACKAGES =============================================================================== #}
+{# ============================================================================================= #}
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ============================================================================================= #}
+{# LOAD STYLESHEET ============================================================================= #}
+{# ============================================================================================= #}
+{% block styles %}
+
+    <link href="{% static 'ttc/css/style.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE HEADING ================================================================================ #}
+{# ============================================================================================= #}
+{% block title %}
+
+    {% trans "Your decisions" %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE CONTENT ================================================================================ #}
+{# ============================================================================================= #}
+{% block content %}
+
+{% if Constants.application_framing %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        Please state your preferences for all {{ nr_courses }} schools in the following form.
+        Please note that the preferences must be a unique for each school and run from 1 to {{ nr_courses }}.
+    {% endblocktrans %}
+</p>
+
+{% else %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        Please state your preferences for all {{ nr_courses }} resources in the following form.
+        Please note that the preferences must be a unique for each resource and run from 1 to {{ nr_courses }}.
+    {% endblocktrans %}
+</p>
+{% endif %}
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>
+                {% if Constants.application_framing %}
+                {% trans "S" %}
+                {% else %}
+                {% trans "R" %}
+                {% endif %}
+                <sub>{{ i }}</sub>
+            </td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>
+                {% trans "Potential Payoff" %}
+                {% if Constants.show_types and Constants.nr_types > 1 %}
+                <br/>({% trans "You are"  %} {{ player.role }})
+                {% endif %}
+            </th>
+            {% for i in valuations %}
+            <td>{{ i|c }}</td>
+            {% endfor %}
+        </tr>
+        {% if Constants.show_priorities %}
+        <tr>
+            {% if Constants.application_framing %}
+            <th>{% trans "Schools' priorities<br/>(... out of" %} {{ players_per_group }})</th>
+            {% else %}
+            <th>{% trans "Resources' priorities<br/>(... out of" %} {{ players_per_group }})</th>
+            {% endif %}
+            {% for i in priorities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        {% if Constants.show_capacities %}
+        <tr>
+            <th>{% trans "Capacities" %}</th>
+            {% for i in capacities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        <tr>
+            <th>{% trans "Your preferences" %}</th>
+            {% for i in form_fields %}
+            <td><input class="pref-form" id="{{ i }}" type="number" name="{{ i }}" value="" maxlength="3">
+            </td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{% if Constants.show_valuations and Constants.show_types and Constants.nr_types > 1 %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        In addition, you know the valuations of the other Types:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>
+                {% if Constants.application_framing %}
+                {% trans "S" %}
+                {% else %}
+                {% trans "R" %}
+                {% endif %}
+                <sub>{{ i }}</sub>
+            </td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+            {% for type, valuations in valuations_others %}
+
+            <tr>
+                <th>{% trans "Potential Payoff<br/>for" %} {{ type }}</th>
+                {% for v in valuations %}
+                <td>{{ v|c }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br/>
+{% endif %}
+<br/>
+{% if Constants.confirm_button %}
+
+<div>
+    <button id="button" class="btn btn-primary btn-large"  type="button" onclick="showhide()">Next</button>
+
+    <br/><br/>
+
+    <div id="confirm_next" style="display: none">
+        {% trans "Are you sure that all your inputs are correct?" %}
+
+        <br/><br/>
+
+        <button id="button_confirm" class="btn btn-primary btn-large" >{% trans "Yes" %}</button>
+    </div>
+</div>
+
+{% else %}
+{% next_button %}
+
+{% endif %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# JAVASCRIPTS ================================================================================= #}
+{# ============================================================================================= #}
+{% block scripts %}
+
+<script>
+     function showhide()
+     {
+           var div = document.getElementById("confirm_next");
+            div.style.display = "block";
+     }
+</script>
+
+{% endblock %}

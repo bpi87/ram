@@ -1,0 +1,574 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-30 10:37+0100\n"
+"PO-Revision-Date: 2018-11-30 11:11+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2\n"
+
+#: .\templates\rsd\Decision.html:24
+msgid "Your decisions"
+msgstr "Ihre Entscheidungen"
+
+#: .\templates\rsd\Decision.html:36
+#, python-format
+msgid ""
+"Please state your preferences for all %(nr_courses)s courses in the "
+"following form. Please note: <ul> <li>The preferences must be a unique for "
+"each course and run from 1 to %(nr_courses)s.</li> <li>You can be matched "
+"with up to %(s_len)s courses.</li> </ul>"
+msgstr ""
+"Bitte geben Sie Ihre Präferenzen für alle %(nr_courses)s Kurse in folgendem "
+"Formular an. Bitte beachten Sie: <ul> <li> Die Präferenzen müssen für jeden "
+"Kurs einzigartig sein und von 1 bis %(nr_courses)s laufen.</li> <li> Sie "
+"können bis zu %(s_len)s Kursen zugeteilt werden. </ul>"
+
+#: .\templates\rsd\Decision.html:48
+#, python-format
+msgid ""
+"Please state your preferences for all %(nr_courses)s resources in the "
+"following form. Please note: <ul> <li>The preferences must be a unique for "
+"each resource and run from 1 to %(nr_courses)s.</li> <li>You can be matched "
+"with up to %(s_len)s resources.</li> </ul>"
+msgstr ""
+"Bitte geben Sie Ihre Präferenzen für alle %(nr_courses)s Ressourcen in "
+"folgendem Formular an. Bitte beachten Sie: <ul> <li> Die Präferenzen müssen "
+"für jede Ressource einzigartig sein und von 1 bis %(nr_courses)s laufen.</"
+"li> <li> Sie können bis zu %(s_len)s Ressourcen zugeteilt werden. </ul>"
+
+#: .\templates\rsd\Decision.html:63 .\templates\rsd\Decision.html:119
+#: .\templates\rsd\Instructions.html:76
+#: .\templates\rsd\InstructionsFramed.html:76 .\templates\rsd\Results.html:44
+msgid "Index"
+msgstr "Index"
+
+#: .\templates\rsd\Decision.html:67 .\templates\rsd\Decision.html:123
+#: .\templates\rsd\InstructionsFramed.html:78
+msgid "C"
+msgstr "C"
+
+#: .\templates\rsd\Decision.html:69 .\templates\rsd\Decision.html:125
+#: .\templates\rsd\Instructions.html:78
+msgid "R"
+msgstr "R"
+
+#: .\templates\rsd\Decision.html:79 .\templates\rsd\Instructions.html:85
+#: .\templates\rsd\InstructionsFramed.html:85 .\templates\rsd\Results.html:53
+msgid "Potential Payoff"
+msgstr "Potentielle Auszahlung"
+
+#: .\templates\rsd\Decision.html:81 .\templates\rsd\Instructions.html:87
+#: .\templates\rsd\InstructionsFramed.html:87 .\templates\rsd\Results.html:55
+msgid "You are"
+msgstr "Sie sind"
+
+#: .\templates\rsd\Decision.html:90 .\templates\rsd\Instructions.html:96
+#: .\templates\rsd\InstructionsFramed.html:96
+msgid "Capacities"
+msgstr "Kapazitäten"
+
+#: .\templates\rsd\Decision.html:97
+msgid "Your preferences"
+msgstr "Ihre Präferenzen"
+
+#: .\templates\rsd\Decision.html:110
+msgid "In addition, you know the valuations of the other Types:"
+msgstr "Zusätzlich kennen Sie die potentiellen Auszahlungen der anderen Typen:"
+
+#: .\templates\rsd\Decision.html:136
+msgid "Potential Payoff<br/>for"
+msgstr "Potentielle Auszahlung<br/>für"
+
+#: .\templates\rsd\Decision.html:157
+msgid "Are you sure that all your inputs are correct?"
+msgstr "Sind Sie sicher, dass alle Ihre Eingaben korrekt sind?"
+
+#: .\templates\rsd\Decision.html:161
+msgid "Yes"
+msgstr "Ja"
+
+#: .\templates\rsd\Instructions.html:24
+#: .\templates\rsd\InstructionsFramed.html:24
+msgid "Instructions"
+msgstr "Instruktionen"
+
+#: .\templates\rsd\Instructions.html:35
+msgid "Preferences for resource allocation"
+msgstr "Präferenzen für die Verteilung von Ressourcen"
+
+#: .\templates\rsd\Instructions.html:39
+#, python-format
+msgid ""
+"In this experiment, you take part in a resource allocation exercise. In "
+"groups of %(players_per_group)s participants, you are to submit preferences "
+"over a selection of resources. You can be allocated to a maximum of "
+"%(s_len)s resources. You can choose over %(nr_courses)s resources in total. "
+"Also, each resource has a different capacity of participants."
+msgstr ""
+"In diesem Experiment nehmen Sie an einem System zur Verteilung von "
+"Ressourcen teil. In Gruppen von %(players_per_group)s Teilnehmern ist es "
+"Ihre Aufgabe, Präferenzen für eine Auswahl von Ressourcen anzugeben. Sie "
+"können maximal %(s_len)s Ressourcen zugeteilt werden. Insgesamt können Sie "
+"zwischen %(nr_courses)s Ressourcen wählen. Jede Ressource hat eine "
+"unterschiedliche Kapazität."
+
+#: .\templates\rsd\Instructions.html:48
+msgid ""
+"Every available resource is linked to a potential payoff. These payoffs can "
+"vary within the group. Imagine the payoff as a representation of you much "
+"you enjoy being allocated with a certain resource. In this experiment, the "
+"payoffs - and therefore you personal joy - are given by the experimenter."
+msgstr ""
+"Jede verfügbare Ressource ist mit einer potentiellen Auszahlung verbunden. "
+"Diese Auszahlung kann innerhalb Ihrer Gruppe variieren. Stellen Sie sich vor "
+"die Auszahlung als eine Art Repräsentation dessen vor, wie sehr sie die "
+"Ressource wirklich haben wollen. In diesem Experiment sind Ihnen die "
+"Auszahlungen - und damit Ihre persönliche Freude - von den Experimentleitern "
+"vorgegeben."
+
+#: .\templates\rsd\Instructions.html:57
+msgid ""
+"The following table shows all available resources, the capacities of the "
+"resources, and the payoffs for each resource. Please keep in mind that the "
+"table is not necessarily the same for all your group members."
+msgstr ""
+"Die folgende Tabelle zeigt alle verfügbaren Ressourcen, deren Kapazitäten "
+"und die damit verbundenen potentiellen Auszahlungen. Zur Erinnerung: Die "
+"Tabelle muss nicht für alle Teilnehmer in Ihrer Gruppe gleich sein."
+
+#: .\templates\rsd\Instructions.html:65
+msgid ""
+"The following table shows all available resources and the payoffs for each "
+"resource. Please keep in mind that the table is not necessarily the same for "
+"all your group members."
+msgstr ""
+"Die folgende Tabelle zeigt alle verfügbaren Ressourcen und die damit "
+"verbundenen potentiellen Auszahlungen. Zur Erinnerung: Die Tabelle muss "
+"nicht für alle Teilnehmer in Ihrer Gruppe gleich sein."
+
+#: .\templates\rsd\Instructions.html:107
+msgid "How are resources allocated?"
+msgstr "Wie werden Ressourcen verteilt?"
+
+#: .\templates\rsd\Instructions.html:111
+#, python-format
+msgid ""
+"After all %(players_per_group)s participants submitted their preference "
+"lists, a random order of participants is obtained and every participants "
+"gets to pick their resources one after another. When it is participant i's "
+"turn, her preferences are considered from highest to lowest preference. "
+"Participant i is allocated to a resource if the resource still has free "
+"capacities."
+msgstr ""
+"Nachdem alle %(players_per_group)s Teilnehmer Ihre Präferenzen abgegeben "
+"haben, werden alle Teilnehmer der Gruppe per Zufall in eine Reihenfolge "
+"gebracht und jeder Teilnehmer darf seine Ressourcen nacheinander auswählen. "
+"Wenn Teilnehmer i an der Reihe ist, werden seine Präferenzen von der "
+"höchsten bis zur niedrigsten abgearbeitet. Teilnehmer i wird eine Ressource "
+"dann zugeteilt, wenn die Ressource noch freie Kapazitäten hat."
+
+#: .\templates\rsd\Instructions.html:120
+msgid ""
+"If that is the case, the participant is allocated with the resource and her "
+"next preference is considered. If the allocation was not successful, the "
+"participant is declined for this resource and her next preference will be "
+"considered. When participant i has obtained a full timetable or all items on "
+"participant i's preference list were considered, the next participant gets "
+"to choose her resources in the same way."
+msgstr ""
+"Wenn dies der Fall ist, wird der Teilnehmer der Ressource zugeteilt und "
+"seine nächste Präferenz wird betrachtet. Wenn eine Zuteilung nicht "
+"erfolgreich war, wird der Teilnehmer der Ressource nicht zugeteilt und seine "
+"nächste Präferenz wird begutachtet. Wenn Teilnehmer i bereits alle seine "
+"Ressourcen zugeteilt bekommen hat, oder alle Präferenzen auf seiner Liste "
+"abgearbeitet sind, darf der nächste Teilnehmer seine Ressourcen wählen."
+
+#: .\templates\rsd\Instructions.html:129
+msgid ""
+"When all preference lists were considered, a timetable for each participant "
+"is obtained."
+msgstr ""
+"Wenn alle Präferenzlisten abgearbeitet sind, hat jeder Teilnehmer einen "
+"Zeitplan mit Ressourcen erhalten."
+
+#: .\templates\rsd\Instructions.html:136
+#: .\templates\rsd\InstructionsFramed.html:136
+msgid "Example:"
+msgstr "Beispiel:"
+
+#: .\templates\rsd\Instructions.html:140
+msgid ""
+"Suppose that there are <b>four</b> participants and <b>four</b> resources "
+"with a capacity of <b>two</b> participants each. Each participant can have "
+"<b>two</b> resources in her timetable. Further suppose that the participants "
+"make their decisions as indicated in the following table:"
+msgstr ""
+"Nehmen Sie an, es gibt <b>vier</b> Teilnehmer und <b>vier</b> Ressourcen mit "
+"einer Kapazität von je <b>zwei</b> Teilnehmern. Jeder Teilnehmer kann bis zu "
+"<b>zwei</b> Ressourcen in seinem Zeitplan haben. Nehmen Sie weiter an, dass "
+"die Teilnehmer Ihre Entscheidungen wie folgt treffen:"
+
+#: .\templates\rsd\Instructions.html:152 .\templates\rsd\Instructions.html:153
+#: .\templates\rsd\Instructions.html:154 .\templates\rsd\Instructions.html:155
+#: .\templates\rsd\Instructions.html:216 .\templates\rsd\Instructions.html:217
+#: .\templates\rsd\Instructions.html:218 .\templates\rsd\Instructions.html:219
+#: .\templates\rsd\Instructions.html:252 .\templates\rsd\Instructions.html:253
+#: .\templates\rsd\Instructions.html:254 .\templates\rsd\Instructions.html:255
+#: .\templates\rsd\Instructions.html:289 .\templates\rsd\Instructions.html:290
+#: .\templates\rsd\Instructions.html:291 .\templates\rsd\Instructions.html:292
+#: .\templates\rsd\Instructions.html:333 .\templates\rsd\Instructions.html:334
+#: .\templates\rsd\Instructions.html:335 .\templates\rsd\Instructions.html:336
+msgid "Participant"
+msgstr "Teilnehmer"
+
+#: .\templates\rsd\Instructions.html:160 .\templates\rsd\Instructions.html:167
+#: .\templates\rsd\Instructions.html:174 .\templates\rsd\Instructions.html:181
+#: .\templates\rsd\Instructions.html:225 .\templates\rsd\Instructions.html:231
+#: .\templates\rsd\Instructions.html:260 .\templates\rsd\Instructions.html:261
+#: .\templates\rsd\Instructions.html:266 .\templates\rsd\Instructions.html:267
+#: .\templates\rsd\Instructions.html:297 .\templates\rsd\Instructions.html:298
+#: .\templates\rsd\Instructions.html:303 .\templates\rsd\Instructions.html:304
+#: .\templates\rsd\Instructions.html:305 .\templates\rsd\Instructions.html:341
+#: .\templates\rsd\Instructions.html:342 .\templates\rsd\Instructions.html:343
+#: .\templates\rsd\Instructions.html:344 .\templates\rsd\Instructions.html:347
+#: .\templates\rsd\Instructions.html:348 .\templates\rsd\Instructions.html:349
+#: .\templates\rsd\Instructions.html:350 .\templates\rsd\Instructions.html:355
+#: .\templates\rsd\Instructions.html:356 .\templates\rsd\Instructions.html:362
+msgid "Resource"
+msgstr "Ressource"
+
+#: .\templates\rsd\Instructions.html:192
+msgid ""
+"Suppose that the order in which participants get to choose their resources "
+"is:"
+msgstr "Nehmen Sie an, dass per Zufall folgende Reihenfolge gezogen wurde:"
+
+#: .\templates\rsd\Instructions.html:198
+msgid ""
+"<b>Participant 2 &#8594; Participant 1 &#8594; Participant 3 &#8594; "
+"Participant 4</b>"
+msgstr ""
+"<b>Teilnehmer 2 &#8594; Teilnehmer 1 &#8594; Teilnehmer 3 &#8594; Teilnehmer "
+"4</b>"
+
+#: .\templates\rsd\Instructions.html:206
+msgid ""
+"First, <b>Participant 2</b> gets to choose resources. Since all resources do "
+"not have any participants in the first round, P<sub>2</sub> is allocated "
+"with her top choice resources R<sub>2</sub> and R<sub>1</sub>."
+msgstr ""
+"Zuerst darf <b>Teilnehmer 2</b> seine Ressourcen wählen. Weil noch keiner "
+"der Ressourcen ein Teilnehmer zugeteilt wurde, werden P<sub>2</sub> seine "
+"erst- und zweitbesten Ressourcen R<sub>2</sub> und R<sub>1</sub> zugeteilt."
+
+#: .\templates\rsd\Instructions.html:242
+msgid ""
+"Next, <b>Participant 1</b> gets to choose resources. P<sub>1</sub> is "
+"allocated with her top choice resources R<sub>2</sub> and R<sub>1</sub>, "
+"since those resources are not at their capacity yet."
+msgstr ""
+"Als nächstes darf <b>Teilnehmer 1</b> seine Ressourcen wählen. P<sub>1</sub> "
+"wird seinen erst- und zweitbesten Ressourcen R<sub>2</sub> und R<sub>1</sub> "
+"zugeteilt, da beide noch freie Kapazitäten haben."
+
+#: .\templates\rsd\Instructions.html:278
+msgid ""
+"Next, <b>Participant 3</b> gets to choose resources. P<sub>3</sub> is not "
+"allocated with her top choice resource R<sub>2</sub>, since it has reached "
+"its maximum capacity in the previous round. However, P<sub>3</sub> obtains "
+"her second and third choice resource R<sub>3</sub> and R<sub>4</sub>, since "
+"those resources are not at their capacity yet."
+msgstr ""
+"Als nächstes darf <b>Teilnehmer 3</b> seine Ressourcen wählen. P<sub>3</sub> "
+"wird seiner erstbesten Ressource R<sub>2</sub> nicht zugeteilt, weil diese "
+"keine freien Kapazitäten mehr hat. Jedoch wird P<sub>3</sub> seinen zweit- "
+"und drittbesten Ressourcen R<sub>3</sub> und R<sub>4</sub> zugeteilt, da "
+"diese noch Kapazitäten haben."
+
+#: .\templates\rsd\Instructions.html:321
+msgid ""
+"Finally, <b>Participant 4</b> gets to choose resources. She is allocated "
+"with her top choice resource R<sub>1</sub>, since it has not reached its "
+"capacity yet. However, she can not obtain neither her second and third "
+"choice resources R<sub>2</sub> and R<sub>3</sub>, because they are both at "
+"their capacities. Instead, P<sub>4</sub> gets allocated with her fourth "
+"choice R<sub>4</sub>."
+msgstr ""
+"Zuletzt darf <b>Teilnehmer 4</b> seine Ressourcen wählen. P<sub>4</sub> wird "
+"seine erstbesten Ressource R<sub>2</sub> zugeteilt, da diese noch "
+"Kapazitäten hat. Jedoch kann P<sub>4</sub> weder seine zweite noch seine "
+"dritte Präferenz erhalten, da diese bereits keine Kapazitäten mehr haben. "
+"Stattdessen wird P<sub>4</sub> seiner vierten Präferenz zugeteilt."
+
+#: .\templates\rsd\Instructions.html:371
+#: .\templates\rsd\InstructionsFramed.html:371
+msgid "Please click the \"Next\" button to continue."
+msgstr "Bitte klicken Sie auf \"Weiter\" um fortzufahren."
+
+#: .\templates\rsd\InstructionsFramed.html:35
+msgid "Preferences for course allocation"
+msgstr "Präferenzen für die Verteilung von Kursen"
+
+#: .\templates\rsd\InstructionsFramed.html:39
+#, python-format
+msgid ""
+"In this experiment, you take part in a course allocation exercise. In groups "
+"of %(players_per_group)s students, you are to submit preferences over a "
+"selection of courses. You can be allocated to a maximum of %(s_len)s "
+"courses. You can choose over %(nr_courses)s courses in total. Also, each "
+"course has a different capacity of students."
+msgstr ""
+"In diesem Experiment nehmen Sie an einem System zur Verteilung von Kursen "
+"teil. In Gruppen von %(players_per_group)s Studenten ist es Ihre Aufgabe, "
+"Präferenzen für eine Auswahl von Kursen anzugeben. Sie können maximal "
+"%(s_len)s Kursen zugeteilt werden. Insgesamt können Sie zwischen "
+"%(nr_courses)s Kursen wählen. Jeder Kurs hat eine unterschiedliche Kapazität."
+
+#: .\templates\rsd\InstructionsFramed.html:48
+msgid ""
+"Every available course is linked to a potential payoff. These payoffs can "
+"vary within the group. Imagine the payoff as a representation of you much "
+"you enjoy being allocated with a certain course. In this experiment, the "
+"payoffs - and therefore you personal joy - are given by the experimenter."
+msgstr ""
+"Jeder verfügbare Kurs ist mit einer potentiellen Auszahlung verbunden. Diese "
+"Auszahlung kann innerhalb Ihrer Gruppe variieren. Stellen Sie sich vor die "
+"Auszahlung als eine Art Repräsentation dessen vor, wie sehr sie den Kurs "
+"wirklich haben wollen. In diesem Experiment sind Ihnen die Auszahlungen - "
+"und damit Ihre persönliche Freude - von den Experimentleitern vorgegeben."
+
+#: .\templates\rsd\InstructionsFramed.html:57
+msgid ""
+"The following table shows all available courses, the capacities of the "
+"courses, and the payoffs for each course. Please keep in mind that the table "
+"is not necessarily the same for all your group members."
+msgstr ""
+"Die folgende Tabelle zeigt alle verfügbaren Kurse, deren Kapazitäten und die "
+"damit verbundenen potentiellen Auszahlungen. Zur Erinnerung: Die Tabelle "
+"muss nicht für alle Teilnehmer in Ihrer Gruppe gleich sein."
+
+#: .\templates\rsd\InstructionsFramed.html:65
+msgid ""
+"The following table shows all available courses and the payoffs for each "
+"course. Please keep in mind that the table is not necessarily the same for "
+"all your group members."
+msgstr ""
+"Die folgende Tabelle zeigt alle verfügbaren Kurse und die damit verbundenen "
+"potentiellen Auszahlungen. Zur Erinnerung: Die Tabelle muss nicht für alle "
+"Teilnehmer in Ihrer Gruppe gleich sein."
+
+#: .\templates\rsd\InstructionsFramed.html:107
+msgid "How are courses allocated?"
+msgstr "Wie werden Kurse verteilt?"
+
+#: .\templates\rsd\InstructionsFramed.html:111
+#, python-format
+msgid ""
+"After all %(players_per_group)s students submitted their preference lists, a "
+"random order of students is obtained and every students gets to pick their "
+"courses one after another. When it is student i's turn, her preferences are "
+"considered from highest to lowest preference. Student i is allocated to a "
+"course if the course still has free capacities."
+msgstr ""
+"Nachdem alle %(players_per_group)s Studenten Ihre Präferenzen abgegeben "
+"haben, werden alle Studenten der Gruppe per Zufall in eine Reihenfolge "
+"gebracht und jeder Studenten darf seine Kurse nacheinander auswählen. Wenn "
+"Student i an der Reihe ist, werden seine Präferenzen von der höchsten bis "
+"zur niedrigsten abgearbeitet. Student i wird einem Kurs dann zugeteilt, wenn "
+"der Kurs noch freie Kapazitäten hat."
+
+#: .\templates\rsd\InstructionsFramed.html:120
+msgid ""
+"If that is the case, the student is allocated with the course and her next "
+"preference is considered. If the allocation was not successful, the student "
+"is declined for this course and her next preference will be considered. When "
+"student i has obtained a full schedule or all items on student i's "
+"preference list were considered, the next student gets to choose her courses "
+"in the same way."
+msgstr ""
+"Wenn dies der Fall ist, wird der Student dem Kurs zugeteilt und seine "
+"nächste Präferenz wird betrachtet. Wenn eine Zuteilung nicht erfolgreich "
+"war, wird der Student dem Kurs nicht zugeteilt und seine nächste Präferenz "
+"wird begutachtet. Wenn Student i bereits alle seine Kurse zugeteilt bekommen "
+"hat, oder alle Präferenzen auf seiner Liste abgearbeitet sind, darf der "
+"nächste Student seine Kurse wählen."
+
+#: .\templates\rsd\InstructionsFramed.html:129
+msgid ""
+"When all preference lists were considered, an schedule for each student is "
+"obtained."
+msgstr ""
+"Wenn alle Präferenzlisten abgearbeitet sind, hat jeder Student einen "
+"Zeitplan mit Kursen erhalten."
+
+#: .\templates\rsd\InstructionsFramed.html:140
+msgid ""
+"Suppose that there are <b>four</b> students and <b>four</b> courses with a "
+"capacity of <b>two</b> students each. Each student can have <b>two</b> "
+"courses in her schedule. Further suppose that the students make their "
+"decisions as indicated in the following table:"
+msgstr ""
+"Nehmen Sie an, es gibt <b>vier</b> Studenten und <b>vier</b> Kurse mit einer "
+"Kapazität von je <b>zwei</b> Studenten. Jeder Student kann bis zu <b>zwei</"
+"b> Kurse in seinem Zeitplan haben. Nehmen Sie weiter an, dass die Studenten "
+"Ihre Entscheidungen wie folgt treffen:"
+
+#: .\templates\rsd\InstructionsFramed.html:152
+#: .\templates\rsd\InstructionsFramed.html:153
+#: .\templates\rsd\InstructionsFramed.html:154
+#: .\templates\rsd\InstructionsFramed.html:155
+#: .\templates\rsd\InstructionsFramed.html:216
+#: .\templates\rsd\InstructionsFramed.html:217
+#: .\templates\rsd\InstructionsFramed.html:218
+#: .\templates\rsd\InstructionsFramed.html:219
+#: .\templates\rsd\InstructionsFramed.html:252
+#: .\templates\rsd\InstructionsFramed.html:253
+#: .\templates\rsd\InstructionsFramed.html:254
+#: .\templates\rsd\InstructionsFramed.html:255
+#: .\templates\rsd\InstructionsFramed.html:289
+#: .\templates\rsd\InstructionsFramed.html:290
+#: .\templates\rsd\InstructionsFramed.html:291
+#: .\templates\rsd\InstructionsFramed.html:292
+#: .\templates\rsd\InstructionsFramed.html:333
+#: .\templates\rsd\InstructionsFramed.html:334
+#: .\templates\rsd\InstructionsFramed.html:335
+#: .\templates\rsd\InstructionsFramed.html:336
+msgid "Student"
+msgstr "Student"
+
+#: .\templates\rsd\InstructionsFramed.html:160
+#: .\templates\rsd\InstructionsFramed.html:167
+#: .\templates\rsd\InstructionsFramed.html:174
+#: .\templates\rsd\InstructionsFramed.html:181
+#: .\templates\rsd\InstructionsFramed.html:225
+#: .\templates\rsd\InstructionsFramed.html:231
+#: .\templates\rsd\InstructionsFramed.html:260
+#: .\templates\rsd\InstructionsFramed.html:261
+#: .\templates\rsd\InstructionsFramed.html:266
+#: .\templates\rsd\InstructionsFramed.html:267
+#: .\templates\rsd\InstructionsFramed.html:297
+#: .\templates\rsd\InstructionsFramed.html:298
+#: .\templates\rsd\InstructionsFramed.html:303
+#: .\templates\rsd\InstructionsFramed.html:304
+#: .\templates\rsd\InstructionsFramed.html:305
+#: .\templates\rsd\InstructionsFramed.html:341
+#: .\templates\rsd\InstructionsFramed.html:342
+#: .\templates\rsd\InstructionsFramed.html:343
+#: .\templates\rsd\InstructionsFramed.html:344
+#: .\templates\rsd\InstructionsFramed.html:347
+#: .\templates\rsd\InstructionsFramed.html:348
+#: .\templates\rsd\InstructionsFramed.html:349
+#: .\templates\rsd\InstructionsFramed.html:350
+#: .\templates\rsd\InstructionsFramed.html:355
+#: .\templates\rsd\InstructionsFramed.html:356
+#: .\templates\rsd\InstructionsFramed.html:362
+msgid "Course"
+msgstr "Kurs"
+
+#: .\templates\rsd\InstructionsFramed.html:192
+msgid ""
+"Suppose that the order in which students get to choose their courses is:"
+msgstr "Nehmen Sie an, dass per Zufall folgende Reihenfolge gezogen wurde:"
+
+#: .\templates\rsd\InstructionsFramed.html:198
+msgid "<b>Student 2 &#8594; Student 1 &#8594; Student 3 &#8594; Student 4</b>"
+msgstr "<b>Student 2 &#8594; Student 1 &#8594; Student 3 &#8594; Student 4</b>"
+
+#: .\templates\rsd\InstructionsFramed.html:206
+msgid ""
+"First, <b>Student 2</b> gets to choose courses. Since all courses do not "
+"have any students in the first round, S<sub>2</sub> is allocated with her "
+"top choice courses C<sub>2</sub> and C<sub>1</sub>."
+msgstr ""
+"Zuerst darf <b>Student 2</b> seine Kurse wählen. Weil noch keinem der Kurse "
+"ein Student zugeteilt wurde, werden S<sub>2</sub> seine erst- und "
+"zweitbesten Kurse C<sub>2</sub> und C<sub>1</sub> zugeteilt."
+
+#: .\templates\rsd\InstructionsFramed.html:242
+msgid ""
+"Next, <b>Student 1</b> gets to choose courses. S<sub>1</sub> is allocated "
+"with her top choice courses C<sub>2</sub> and C<sub>1</sub>, since those "
+"courses are not at their capacity yet."
+msgstr ""
+"Als nächstes darf <b>Student 1</b> seine Kurse wählen. S<sub>1</sub> wird "
+"seinen erst- und zweitbesten Kursen C<sub>2</sub> und C<sub>1</sub> "
+"zugeteilt, da beide noch freie Kapazitäten haben."
+
+#: .\templates\rsd\InstructionsFramed.html:278
+msgid ""
+"Next, <b>Student 3</b> gets to choose courses. S<sub>3</sub> is not "
+"allocated with her top choice course C<sub>2</sub>, since it has reached its "
+"maximum capacity in the previous round. However, S<sub>3</sub> obtains her "
+"second and third choice course C<sub>3</sub> and C<sub>4</sub>, since those "
+"courses are not at their capacity yet."
+msgstr ""
+"Als nächstes darf <b>Student 3</b> seine Ressourcen wählen. S<sub>3</sub> "
+"wird seinem erstbesten Kurs C<sub>2</sub> nicht zugeteilt, weil diese keine "
+"freien Kapazitäten mehr hat. Jedoch wird S<sub>3</sub> seinen zweit- und "
+"drittbesten Kursen C<sub>3</sub> und C<sub>4</sub>zugeteilt, da diese noch "
+"Kapazitäten haben."
+
+#: .\templates\rsd\InstructionsFramed.html:321
+msgid ""
+"Finally, <b>Student 4</b> gets to choose courses. She is allocated with her "
+"top choice course C<sub>1</sub>, since it has not reached its capacity yet. "
+"However, she can not obtain neither her second and third choice courses "
+"C<sub>2</sub> and C<sub>3</sub>, because they are both at their capacities. "
+"Instead, S<sub>4</sub> gets allocated with her fourth choice C<sub>4</sub>."
+msgstr ""
+"Zuletzt darf <b>Student 4</b> seine Kurse wählen. S<sub>4</sub> wird sein "
+"erstbester Kurs C<sub>2</sub> zugeteilt, da diese noch Kapazitäten hat. "
+"Jedoch kann S<sub>4</sub> weder seine zweite noch seine dritte Präferenz "
+"erhalten, da diese bereits keine Kapazitäten mehr haben. Stattdessen wird "
+"S<sub>4</sub> seiner vierten Präferenz zugeteilt."
+
+#: .\templates\rsd\Results.html:24
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: .\templates\rsd\Results.html:35
+#, python-format
+msgid "Your position to choose was %(position)s / %(players_per_group)s."
+msgstr "Ihre Position war: %(position)s / %(players_per_group)s."
+
+#: .\templates\rsd\Results.html:63
+msgid "Your preferences:"
+msgstr "Ihre Präferenzen:"
+
+#: .\templates\rsd\Results.html:70
+msgid "Your courses:"
+msgstr "Ihre Kurse:"
+
+#: .\templates\rsd\Results.html:72
+msgid "Your resources:"
+msgstr "Ihre Ressourcen:"
+
+#: .\templates\rsd\Results.html:83
+msgid "Your payoff is:"
+msgstr "Ihre Auszahlung beträgt:"
+
+#: .\templates\rsd\Thanks.html:24
+msgid "Thank you for participating in today's experiment!"
+msgstr "Vielen Dank für Ihre Teilnahme am heutigen Experiment!"
+
+#: .\templates\rsd\Thanks.html:35
+msgid "Please wait for further instructions!"
+msgstr "Bitte warten Sie auf weitere Anweisungen!"
+
+#~ msgid "Your valuations"
+#~ msgstr "Ihre Auszahlungen"
+
+#~ msgid "Your schools:"
+#~ msgstr "Ihre Kurse:"

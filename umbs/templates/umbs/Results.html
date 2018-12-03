@@ -1,0 +1,94 @@
+{# ============================================================================================= #}
+{# LOAD PACKAGES =============================================================================== #}
+{# ============================================================================================= #}
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ============================================================================================= #}
+{# LOAD STYLESHEET ============================================================================= #}
+{# ============================================================================================= #}
+{% block styles %}
+
+    <link href="{% static 'umbs/css/style.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE HEADING ================================================================================ #}
+{# ============================================================================================= #}
+{% block title %}
+
+    {% trans "Results" %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE CONTENT ================================================================================ #}
+{# ============================================================================================= #}
+{% block content %}
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        You had an initial endowment of {{ endowment }}.
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>
+                {% trans "Potential Payoff" %}
+                {% if Constants.show_types and Constants.nr_types > 1 %}
+                <br/>({% trans "You are"  %} {{ player.role }})
+                {% endif %}
+            </th>
+            {% for i in valuations %}
+            <td>{{ i|c }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>{% trans "Your bids:" %}</th>
+            {% for i in player_bids %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>{% trans "Lowest bid to enroll:" %}</th>
+            {% for i in clearing_bids %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% if Constants.application_framing %}
+            <th>{% trans "Your courses:" %}</th>
+            {% else %}
+            <th>{% trans "Your resources:" %}</th>
+            {% endif %}
+            {% for i in successful %}
+            <td>{% if i == True %} X {% else %} {% endif %}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="heading">
+    {% trans "Your payoff is:" %} {{ player.payoff|c }}.
+</p>
+
+{% next_button %}
+
+{% endblock %}

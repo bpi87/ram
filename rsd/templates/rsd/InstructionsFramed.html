@@ -1,0 +1,378 @@
+{# ============================================================================================= #}
+{# LOAD PACKAGES =============================================================================== #}
+{# ============================================================================================= #}
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+
+{# ============================================================================================= #}
+{# LOAD STYLESHEET ============================================================================= #}
+{# ============================================================================================= #}
+{% block styles %}
+
+    <link href="{% static 'rsd/css/style.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE HEADING ================================================================================ #}
+{# ============================================================================================= #}
+{% block title %}
+
+    {% trans "Instructions" %}
+
+{% endblock %}
+
+
+{# ============================================================================================= #}
+{# PAGE CONTENT ================================================================================ #}
+{# ============================================================================================= #}
+{% block content %}
+
+<p class="heading">
+    {% trans "Preferences for course allocation" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        In this experiment, you take part in a course allocation exercise. In groups of {{ players_per_group }}
+        students, you are to submit preferences over a selection of courses. You can be allocated to a maximum of
+        {{ s_len }} courses. You can choose over {{ nr_courses }} courses in total. Also, each
+        course has a different capacity of students.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Every available course is linked to a potential payoff. These payoffs can vary within the group. Imagine the
+        payoff as a representation of you much you enjoy being allocated with a certain course. In this experiment, the
+        payoffs - and therefore you personal joy - are given by the experimenter.
+    {% endblocktrans %}
+</p>
+
+{% if Constants.show_capacities %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        The following table shows all available courses, the capacities of the courses, and the payoffs for each
+        course. Please keep in mind that the table is not necessarily the same for all your group members.
+    {% endblocktrans %}
+</p>
+
+{% else %}
+<p class="justify">
+    {% blocktrans trimmed %}
+        The following table shows all available courses and the payoffs for each course. Please keep in mind that
+        the table is not necessarily the same for all your group members.
+    {% endblocktrans %}
+</p>
+{% endif %}
+
+<div>
+    <table class="dec-table">
+        <thead>
+        <tr>
+            <th>{% trans "Index" %}</th>
+            {% for i in indices %}
+            <td>{% trans "C" %}<sub>{{ i }}</sub></td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>
+                {% trans "Potential Payoff" %}
+                {% if Constants.show_types and Constants.nr_types > 1 %}
+                <br/>({% trans "You are"  %} {{ player.role }})
+                {% endif %}
+            </th>
+            {% for i in valuations %}
+            <td>{{ i|c }}</td>
+            {% endfor %}
+        </tr>
+        {% if Constants.show_capacities %}
+        <tr>
+            <th>{% trans "Capacities" %}</th>
+            {% for i in capacities %}
+            <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<p class="heading">
+    {% trans "How are courses allocated?" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        After all {{ players_per_group }} students submitted their preference lists, a random order of
+        students is obtained and every students gets to pick their courses one after another. When it is
+        student i's turn, his/her preferences are considered from highest to lowest preference. Student i is
+        allocated to a course if the course still has free capacities.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        If that is the case, the student is allocated with the course and his/her next preference is
+        considered. If the allocation was not successful, the student is declined for this course and his/her
+        next preference will be considered. When student i has obtained a full schedule or all items on student i's
+        preference list were considered, the next student gets to choose his/her courses in the same way.
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        When all preference lists were considered, an schedule for each student is obtained.
+    {% endblocktrans %}
+</p>
+
+{% if Constants.instructions_example %}
+<p class="heading">
+    {% trans "Example:" %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Suppose that there are <b>four</b> students and <b>four</b> courses with a capacity of <b>two</b> students
+        each. Each student can have <b>two</b> courses in his/her schedule. Further suppose that the students
+        make their decisions as indicated in the following table:
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>{% trans "Student" %} 1</th>
+        <th>{% trans "Student" %} 2</th>
+        <th>{% trans "Student" %} 3</th>
+        <th>{% trans "Student" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "Course" %} 1</td>
+        <td>3</td>
+        <td>2</td>
+        <td>4</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>{% trans "Course" %} 2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>{% trans "Course" %} 3</td>
+        <td>2</td>
+        <td>3</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>{% trans "Course" %} 4</td>
+        <td>4</td>
+        <td>4</td>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Suppose that the order in which students get to choose their courses is:
+    {% endblocktrans %}
+</p>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        <b>Student 2 &#8594; Student 1 &#8594; Student 3 &#8594; Student 4</b>
+    {% endblocktrans %}
+</p>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        First, <b>Student 2</b> gets to choose courses. Since all courses do not have any students in the first
+    round, S<sub>2</sub> is allocated with his/her top choice courses C<sub>2</sub> and C<sub>1</sub>.
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Student" %} 1</th>
+        <th>{% trans "Student" %} 2</th>
+        <th>{% trans "Student" %} 3</th>
+        <th>{% trans "Student" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>{% trans "Course" %} 2</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>{% trans "Course" %} 1</td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Next, <b>Student 1</b> gets to choose courses. S<sub>1</sub> is allocated with his/her top choice courses
+        C<sub>2</sub> and C<sub>1</sub>, since those courses are not at their capacity yet.
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Student" %} 1</th>
+        <th>{% trans "Student" %} 2</th>
+        <th>{% trans "Student" %} 3</th>
+        <th>{% trans "Student" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "Course" %} 2</td>
+        <td>{% trans "Course" %} 2</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>{% trans "Course" %} 3</td>
+        <td>{% trans "Course" %} 1</td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Next, <b>Student 3</b> gets to choose courses. S<sub>3</sub> is not allocated with his/her top choice course
+        C<sub>2</sub>, since it has reached its maximum capacity in the previous round. However, S<sub>3</sub> obtains
+        his/her second and third choice course C<sub>3</sub> and C<sub>4</sub>, since those courses are not at their capacity yet.
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Student" %} 1</th>
+        <th>{% trans "Student" %} 2</th>
+        <th>{% trans "Student" %} 3</th>
+        <th>{% trans "Student" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{% trans "Course" %} 2</td>
+        <td>{% trans "Course" %} 2</td>
+        <td><del>Course 2</del></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>{% trans "Course" %} 3</td>
+        <td>{% trans "Course" %} 1</td>
+        <td>{% trans "Course" %} 3</td>
+        <td></td>
+      </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td>Course 4</td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Finally, <b>Student 4</b> gets to choose courses. She is allocated with his/her top choice course C<sub>1</sub>,
+        since it has not reached its capacity yet. However, she can not obtain neither his/her second and third choice
+        courses C<sub>2</sub> and C<sub>3</sub>, because they are both at their capacities. Instead, S<sub>4</sub>
+        gets allocated with his/her fourth choice C<sub>4</sub>.
+    {% endblocktrans %}
+</p>
+
+<div>
+    <table class="instr-table">
+      <thead>
+      <tr>
+        <th>{% trans "Student" %} 1</th>
+        <th>{% trans "Student" %} 2</th>
+        <th>{% trans "Student" %} 3</th>
+        <th>{% trans "Student" %} 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><b>{% trans "Course" %} 2</b></td>
+        <td><b>{% trans "Course" %} 2</b></td>
+        <td><del>{% trans "Course" %} 2</del></td>
+        <td><b>{% trans "Course" %} 1</b></td>
+      </tr>
+      <tr>
+        <td><b>{% trans "Course" %} 3</b></td>
+        <td><b>{% trans "Course" %} 1</b></td>
+        <td><b>{% trans "Course" %} 3</b></td>
+        <td><del>{% trans "Course" %} 2</del></td>
+      </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td><b>{% trans "Course" %} 4</b></td>
+        <td><del>{% trans "Course" %} 3</del></td>
+      </tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><b>{% trans "Course" %} 4</b></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
+{% endif %}
+<br/>
+
+<p class="justify">
+    {% blocktrans trimmed %}
+        Please click the "Next" button to continue.
+    {% endblocktrans %}
+</p>
+
+{% next_button %}
+
+{% endblock %}
